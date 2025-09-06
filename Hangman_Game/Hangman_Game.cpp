@@ -25,6 +25,21 @@ bool letra_existe(char chute){
     return false;
 }
 
+bool nao_acertou (){
+    for (char letra : PALAVRA_SECRETA)
+    {
+        if (!chutou[letra]){
+            return true;
+        }
+    }
+    
+    return false;
+}
+
+bool nao_enforcou(){
+    return chutes_errados.size() < 5;
+}
+
 int main () {
 
     system("cls");
@@ -35,10 +50,7 @@ int main () {
 
     cout << "\nDecifre a palavra:\n";
 
-    bool nao_acertou = true;
-    bool nao_enforcou = true;
-
-    while (nao_acertou && nao_enforcou){
+    while (nao_acertou() && nao_enforcou()){
         
         for (char letra : PALAVRA_SECRETA){
             if (chutou[letra]){
@@ -74,5 +86,15 @@ int main () {
         system("cls");
         
     }
+
+    cout << "Fim de jogo!" << endl;
+    cout << "A palavra secreta era: " << PALAVRA_SECRETA << endl;
+
+    if (nao_acertou()){
+        cout << "Voce perdeu! Tente novamente.\n" << endl;
+    }else{
+        cout << "Parabens, voce descobriu a palavra!\n" << endl;
+    }
+    
     
 }
