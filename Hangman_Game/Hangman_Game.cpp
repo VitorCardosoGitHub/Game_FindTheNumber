@@ -40,48 +40,64 @@ bool nao_enforcou(){
     return chutes_errados.size() < 5;
 }
 
+void cabecalho(){
+    cout << "\n|*****************************************|" << endl;
+    cout << "|     Seja bem-vindo ao Hangman Game!     |" << endl;
+    cout << "|*****************************************|" << endl;
+}
+
+void imprime_erros(){
+    cout << "\n\nChutes errados: ";
+    for (char letra : chutes_errados){
+        cout << letra << ", ";
+    }   
+}
+
+void imprime_palavra(){
+    for (char letra : PALAVRA_SECRETA){
+        if (chutou[letra]){
+            cout << letra << " ";
+        }else{
+             cout << "_ ";
+        }
+    }
+}
+
+void chute(){
+    cout << endl;
+        
+    cout << "\nDigite seu chute: ";
+
+    char chute;
+    cin >> chute;
+
+    chutou [chute] = true;
+
+    if (letra_existe(chute))
+    {
+        cout << "\nVoce acertou! Seu chute esta na palavra.\n" << endl;
+    }
+    else{
+        cout << "\nVoce errou! Seu chute nao esta na palavra.\n" << endl;
+        chutes_errados.push_back(chute);
+    }    
+}
+
 int main () {
 
     system("cls");
 
-    cout << "\n|*****************************************|" << endl;
-    cout << "|     Seja bem-vindo ao Hangman Game!     |" << endl;
-    cout << "|*****************************************|" << endl;
+    cabecalho();
 
     cout << "\nDecifre a palavra:\n";
 
     while (nao_acertou() && nao_enforcou()){
         
-        for (char letra : PALAVRA_SECRETA){
-            if (chutou[letra]){
-                cout << letra << " ";
-            }else{
-                cout << "_ ";
-            }
-        }
+        imprime_palavra();
 
-        cout << "\n\nChutes errados: ";
-        for (char letra : chutes_errados){
-            cout << letra << ", ";
-        }
+        imprime_erros();
         
-        cout << endl;
-        
-        cout << "\nDigite seu chute: ";
-
-        char chute;
-        cin >> chute;
-
-        chutou [chute] = true;
-
-        if (letra_existe(chute))
-        {
-            cout << "\nVoce acertou! Seu chute esta na palavra.\n" << endl;
-        }
-        else{
-            cout << "\nVoce errou! Seu chute nao esta na palavra.\n" << endl;
-            chutes_errados.push_back(chute);
-        }
+        chute();
 
         system("cls");
         
@@ -95,6 +111,4 @@ int main () {
     }else{
         cout << "Parabens, voce descobriu a palavra!\n" << endl;
     }
-    
-    
 }
